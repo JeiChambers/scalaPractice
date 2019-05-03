@@ -12,9 +12,9 @@ object Move extends Enum[Move] {
   case object Rock extends Move
 }
 
-implicit val moveOrdering: Ordering[Move] = new Ordering[Move]{
+implicit val moveOrdering: Ordering[Move] = new Ordering[Move]
   def compare(x: Move, y: Move): Int = {
-    x match {
+    x match {w
       case Move.Scissors if y == Move.Paper => 1
       case Move.Scissors if y == Move.Rock => -1
       case Move.Scissors => 0
