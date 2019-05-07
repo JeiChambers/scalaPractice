@@ -1,11 +1,22 @@
+import Element.elem
 
 object layout extends App{
 
+
   abstract class Element {
     def contents: Array[String]
-    val height: Int = contents.length
-    val width =
-      if (height == 0) 0 else contents(0).length
+    def width: Int =
+      if (height == 0 ) 0 else contents(0).length
+    def height: Int = contents.length
+    def above(that: Element): Element =
+      elem(this.contents ++ that.contents)
+    def beside(that: Element): Element =
+      elem(
+        for(
+          (line1, line2) <- this.contents zip that.contents
+        )yield line1 + line2
+      )
+    override def toString = contents mkString "\n"
   }
 
   class ArrayElement(val contents: Array[String]) extends Element{
@@ -18,7 +29,7 @@ object layout extends App{
     override def height = 1
   }
 
-  class UniformElement(ch: Char, override val width: Int, override height: Int) extends Element{
+  class UniformElement(ch: Char, override val width: Int, override val height: Int) extends Element{
     private val line = ch.toString * width
     def contents: Array[String] = Array.fill(height)(line)
   }
